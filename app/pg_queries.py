@@ -15,7 +15,39 @@ print("CONNECTION:", connection)
 cursor = connection.cursor()
 print("CURSOR:", cursor)
 
-cursor.execute("SELECT * from test_table;")
+#
+# TABLE CREATION
+#
 
-result = cursor.fetchone()
-print("RESULT:", result)
+query = """
+CREATE TABLE IF NOT EXISTS test_table (
+  id SERIAL PRIMARY KEY,
+  name varchar(40) NOT NULL,
+  data JSONB
+);
+"""
+cursor.execute(query)
+
+cursor.execute("SELECT * from test_table;")
+result = cursor.fetchall()
+print("RESULT:", len(result))
+
+#
+# DATA INSERTION
+#
+
+insertion_query = """
+INSERT INTO test_table (name, data)
+VALUES
+    ('A row name', null),
+    ('Another row, with JSON', '{ "a": 1, "b": ["dog", "cat", 42], "c": true }'::JSONB)
+"""
+cursor.execute(insertion_query)
+
+cursor.execute("SELECT * from test_table;")
+result = cursor.fetchall()
+print("RESULT:", len(result))
+
+
+# ACTUALLY SAVE THE TRANSACTIONS
+connection.commit()
