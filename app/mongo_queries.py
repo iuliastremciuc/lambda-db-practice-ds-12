@@ -56,3 +56,16 @@ print(db.list_collection_names())
 print("DOCS:", collection.count_documents({})) # select *
 print("PIKA DOC:", collection.count_documents({"name": "Pikachu"})) # like a WHERE clause with filter conditions
 print("LOW LEVELS:", collection.count_documents({"level": {"$lt": 25}})) # like a WHERE clause with filter conditions
+
+print("--------------")
+print("INSERT MANY...")
+new_documents = [
+    {"name": "Snorlax", "lvl": 70},
+    {"name": "Charmander", "level": 100},
+    {"name": "Jigglypuff", "level": 50},
+]
+
+collection.insert_many(new_documents)
+
+print("DOCS:", collection.count_documents({})) # select *
+print("ANY LEVELS:", collection.count_documents({"level": {"$gt": 0}})) # like a WHERE clause with filter conditions
