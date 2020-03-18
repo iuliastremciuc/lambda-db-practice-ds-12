@@ -47,6 +47,7 @@ print("RESULT:", len(result))
 #    ('A row name', null),
 #    ('Another row, with JSON', '{ "a": 1, "b": ["dog", "cat", 42], "c": true }'::JSONB)
 #"""
+#cursor.execute(insertion_query)
 
 #
 # APPROACH 2
